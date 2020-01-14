@@ -64,7 +64,22 @@ Vagrant.configure("2") do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
    config.vm.provision "shell", inline: <<-SHELL
+     # Installation block
      yum install -y epel-release
      yum install -y vim cockpit bash-completion postfix dovecot
+     # OS configuration block
+     hostnamectl set-hostname allinone-oi
+  	 # Service configuration block
+     systemctl enable --now postfix 
+     systemctl enable --now dovecot
+     systemctl enable --now cockpit.socket
+     # User configuration block
+     useradd engineer 
+     usermod -p '$6$xyz$.UccqMWqX8VK4PRzmKTR1woU2y5IgDas9n.XPkhgK8M62yVqI4sLx.Yw2AC5z7t4Ke3NiU7aq7i3Su5QdrRcF1' engineer
+     useradd manager
+     usermod -p '$6$xyz$PcPt/h72LIQm.YoxBmDLqfpbX1w3vhcJ1LwyYjOaslRr67l0g3ZkE5nKN0c4Ed98wYTvMWvhlGcV7NZorCE2i/' manager
+     useradd contractor
+     usermod -p '$6$xyz$tlQI91A01E6TWfFL6jqBSSLdzLKJtFyF2aWfdTZyOBUn56UjQbMyecGla5IMGqX./neusxkBsr3IwUGZhTnel0' contractor
+     
    SHELL
 end
