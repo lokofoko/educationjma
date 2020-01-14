@@ -66,7 +66,7 @@ Vagrant.configure("2") do |config|
    config.vm.provision "shell", inline: <<-SHELL
      # Installation block
      yum install -y epel-release
-     yum install -y vim cockpit bash-completion postfix dovecot
+     yum install -y vim cockpit bash-completion postfix dovecot telnet nc
      # OS configuration block
      hostnamectl set-hostname allinone-oi
   	 # Service configuration block
